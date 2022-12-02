@@ -32,7 +32,6 @@ madoop \
   -output output0 \
   -mapper ./map0.py \
   -reducer ./reduce0.py
-
 # Copy document count to a separate file
 cp output0/part-00000 total_document_count.txt
 

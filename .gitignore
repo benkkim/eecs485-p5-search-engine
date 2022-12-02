@@ -10,6 +10,7 @@ submit.tar.gz
 submit.tar.xz
 starter_files.tar.gz
 starter_files.tar.xz
+tests/
 
 # EECS 485 Project 1
 /insta485/html/
