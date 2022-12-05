@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
 import sys
 import itertools
+import json
 
 def reduce_one_group(key, group):
     """Reduce one group."""
-    # intialize inverted index vector
-    inverted_index = []
-    inverted_index.append(key)
+    print(key, group)
+    for v in group:
+        print([json.loads(idx.replace("'", '"')) for idx in v])
 
 def keyfunc(line):
     """Return the key from a TAB-delimited key-value pair."""

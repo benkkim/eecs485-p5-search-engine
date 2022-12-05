@@ -1,20 +1,40 @@
 #!/usr/bin/env python3
 import sys
 
-# make a dictionary where the key is the word and the value is a tuple of the doc_id and the count
-word_dict = {}
+"""
+{
+    t_k: [{
+            doc_id: doc_id,
+            tf: tf
+        }]
+}
+"""
 
-# for each line in the input
+word_dict = {}
 for line in sys.stdin:
-    doc_id = line[0]
-    # remove everything before the tab
-    line = line[1:]
-    for word in line:
-        # if the word is not in the dictionary, add it and set the value to 1
-        if word not in word_dict:
-            word_dict[word] = (doc_id, 1)
-        # if the word is in the dictionary, add 1 to the count
+    line = line.strip()
+    words = line.split("\t")
+    doc_id = words[0]
+    text = words[1]
+    text = text.split(" ")
+    # print(text)
+    for t_k in text:
+        if t_k not in word_dict:
+            int_dict = {}
+            int_dict["d_id"] = doc_id
+            int_dict["tf"] = 1
+            word_dict[t_k] = [int_dict]
         else:
-            word_dict[word] = (doc_id, word_dict[word][1] + 1)
-        # print the key value pair
-        print(f"{word}\t{doc_id} {word_dict[word][1]}")
+            for d_id_dict in word_dict[t_k]:
+                if d_id_dict["d_id"] == doc_id:
+                    d_id_dict["tf"] += 1
+                    break
+            else:
+                int_dict = {}
+                int_dict["d_id"] = doc_id
+                int_dict["tf"] = 1
+                word_dict[t_k].append(int_dict)
+for k, v in word_dict.items():
+    print(f"{k}\t{v}")
+
+            
