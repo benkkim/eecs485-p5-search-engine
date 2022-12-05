@@ -8,4 +8,4 @@ import sys
 import itertools
 
 for line in sys.stdin:
-    print(line, end="")
+    print(line)
