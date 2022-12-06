@@ -22,24 +22,19 @@
     {% if num_docs == 0 %}
         <p>No search results found</p>
     {% else %}
-    {% for document in Documents %}
+    {% for doc in docs %}
     <div class="doc">
         <!-- if the document exists -->
-        {% if document in Documents%}
-            <a class="url" href="{{document.url}}"></a>
+        {% if doc.url %}
+            <a class="url" href="{{doc.url}}"></a>
         {% else %}
             <div> No url available </div>
         {% endif %}
-        <div class="doc_title">{{document.title}}</div>
-
-        {% if summary in Documents%}
-            <div class="doc_summary">{{document.summary}}</div>
+        <div class="doc_title">{{doc.title}}</div>
+        {% if doc.summary%}
+            <div class="doc_summary">{{doc.summary}}</div>
         {% else %}
             <div> No summary available </div>
-        {% endif %}
-        <!-- if the document doesn't exist -->
-        {% if document not in Documents%}
-            <div class="no_results">No search results found!</div>
         {% endif %}
     </div>
   {% endfor %}
