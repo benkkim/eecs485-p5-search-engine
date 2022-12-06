@@ -50,6 +50,8 @@ def index():
         for doc in result:
             doc_ids.append(doc)
 
+    doc_ids.sort(key=lambda x: x["score"], reverse=True)
+
     if len(doc_ids) > 10:
         doc_ids = doc_ids[:10]
 
