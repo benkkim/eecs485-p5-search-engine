@@ -27,6 +27,8 @@ def index():
     w_res = flask.request.args.get("w", default=None, type=float)
     context = {}
     if q_res is None:
+        context["docs"] = []
+        context["num_docs"] = 0
         return flask.render_template("index.html", **context)
     
     threads = []
@@ -58,5 +60,6 @@ def index():
     
     docs = [doc["doc"] for doc in doc_ids]
     context["docs"] = docs
+    context["num_docs"] = len(docs)
 
     return flask.render_template("index.html", **context)
