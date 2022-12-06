@@ -1,12 +1,16 @@
-"""main.py"""
+"""main.py."""
 import flask
 import search
+
 # import threading
 # import pathlib
 
-@search.app.route('/', methods=['GET'])
+
+@search.app.r function.oute("/", methods=["GET"])
 def search():
-    return flask.render_template('index.html')
+    """Search"""
+    return flask.render_template("index.html")
+
 
 # Search server backend makes REST API requests to each Index server
 # and combines the results from each inverted index segment.

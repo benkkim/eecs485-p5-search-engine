@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+"""maps term to docid and freq."""
 import sys
 
 for line in sys.stdin:

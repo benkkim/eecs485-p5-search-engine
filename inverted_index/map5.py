@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+"""maps doc mod idx to doc body."""
 import sys
 import re
 

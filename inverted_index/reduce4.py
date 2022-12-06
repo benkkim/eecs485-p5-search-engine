@@ -1,14 +1,20 @@
 #!/usr/bin/env python3
+"""
+Template reducer.
+
+https://github.com/eecs485staff/madoop/blob/main/README_Hadoop_Streaming.md
+"""
 import sys
 import itertools
 import json
 import re
 import math
 
+
 def reduce_one_group(key, group):
     """Reduce one group."""
     group = list(group)
-    norm = 0.
+    norm = 0.0
     l_o_t = []
     for term in group:
         term = term.strip()
@@ -17,12 +23,10 @@ def reduce_one_group(key, group):
         t_k = term[1].split()[0].strip()
         tf_k = term[1].split()[1].strip()
         idf_k = term[1].split()[2].strip()
-        norm += (float(tf_k) * float(idf_k)) ** 2 
+        norm += (float(tf_k) * float(idf_k)) ** 2
         l_o_t.append(f"{t_k} {tf_k} {idf_k}")
     sys.stdout.write(f"{d_id}\t{l_o_t} {norm}\n")
 
-
-    
 
 def keyfunc(line):
     """Return the key from a TAB-delimited key-value pair."""

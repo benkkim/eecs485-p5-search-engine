@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+"""maps document id to document body."""
 import sys
 import csv
 import re
@@ -14,7 +15,8 @@ for line in csv.reader(sys.stdin):
             stopwords.add(line.strip())
     title_body = title_body.casefold()
     title_body = title_body.split()
-    title_body = [word.strip() for word in title_body if word.strip() not in stopwords]
+    title_body = [
+        word.strip() for word in title_body if word.strip() not in stopwords
+    ]
     title_body = " ".join(title_body)
     sys.stdout.write(f"{doc_id}\t{title_body}\n")
-    

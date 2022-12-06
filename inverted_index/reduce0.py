@@ -14,7 +14,7 @@ def reduce_one_group(key, group):
     group = list(group)
     for line in group:
         line = line.strip()
-        num = line.split('\t')[1]
+        num = line.split("\t")[1]
         total_count += int(num)
     sys.stdout.write(f"{total_count}")
 

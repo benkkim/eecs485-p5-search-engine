@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
+
 import sys
 import itertools
 import json
 import re
 import math
+
 
 def reduce_one_group(key, group):
     """Reduce one group."""
@@ -14,7 +16,7 @@ def reduce_one_group(key, group):
         file = file.split("\t")
         d_id = file[1].strip()
         text = file[2].strip()
-        l_o_t = file[2][:file[2].index("]") + 1]
+        l_o_t = file[2][: file[2].index("]") + 1]
         l_o_t = l_o_t.replace("[", "").replace("]", "").split(",")
         norm = file[2][file[2].index("]") + 2:].strip()
         for text in l_o_t:
@@ -32,7 +34,8 @@ def reduce_one_group(key, group):
         # remove all the extra spaces, tabs, and newlines
         term = re.sub(r"\s+", " ", term)
         line = re.sub(r"\s+", " ", line)
-        sys.stdout.write(f"{term} {line}\n") #{line}\n")
+        sys.stdout.write(f"{term} {line}\n")  # {line}\n")
+
 
 def keyfunc(line):
     """Return the key from a TAB-delimited key-value pair."""

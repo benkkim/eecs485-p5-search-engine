@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+"""maps docid to doc metadata."""
 import sys
 
 for line in sys.stdin:
@@ -9,4 +10,3 @@ for line in sys.stdin:
     tf_k = text[1].split()[1].strip()
     idf_k = text[1].split()[2].strip()
     sys.stdout.write(f"{d_id}\t{t_k} {tf_k} {idf_k}\n")
-    
