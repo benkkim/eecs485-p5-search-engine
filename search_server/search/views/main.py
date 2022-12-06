@@ -1,19 +1,62 @@
 """main.py."""
 import flask
 import search
+import search.model
+from search_server.search.config import SEARCH_INDEX_SEGMENT_API_URLS
+import requests
+from threading import Thread
 
 # import threading
 # import pathlib
 
+def search_index(url, q_res, w_res, results, idx):
+    """Search index."""
+    end_point = f"{url}?q={q_res}&w={w_res}"
+    try:
+        response = requests.get(end_point)
+        response.raise_for_status()
+    except requests.exceptions.HTTPError as err:
+        raise SystemExit(err)
+    res = response.json()
+    results[idx] = res
 
-@search.app.r function.oute("/", methods=["GET"])
-def search():
+@search.app.route("/", methods=["GET"])
+def index():
     """Search"""
-    return flask.render_template("index.html")
+    q_res = flask.request.args.get("q", default=None, type=str)
+    w_res = flask.request.args.get("w", default=None, type=float)
+    context = {}
+    if q_res is None:
+        return flask.render_template("index.html", **context)
+    
+    threads = []
+    results = [[] for _ in range(len(SEARCH_INDEX_SEGMENT_API_URLS))]
+    for idx, url in enumerate(SEARCH_INDEX_SEGMENT_API_URLS):
+        thread = Thread(target=search_index, args=(url, q_res, w_res, results, idx))
+        threads.append(thread)
+        thread.start()
+    
+    for thread in threads:
+        thread.join()
+    
+    doc_ids = []
+    for resu in results:
+        doc_ids += resu["hits"]
+    
+    doc_ids = sorted(doc_ids, key=lambda x: x["score"], reverse=True)
 
+    doc_ids = doc_ids[:10]
 
-# Search server backend makes REST API requests to each Index server
-# and combines the results from each inverted index segment.
+    con = search.model.get_db()
 
-# It should make these requests in parallel threads.
-# The Search server then displays the top 10 results to the client.
+    for doc in doc_ids:
+        cur = con.execute(
+            "SELECT title, summary, url FROM Documents WHERE docid = ?", 
+            (doc["docid"],)
+        )
+        doc["doc"] = cur.fetchone()
+    
+    docs = [doc["doc"] for doc in doc_ids]
+    context["docs"] = docs
+
+    return flask.render_template("index.html", **context)

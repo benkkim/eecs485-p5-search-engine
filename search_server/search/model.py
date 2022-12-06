@@ -13,6 +13,7 @@ def dict_factory(cursor, row):
 
 def get_db():
     """Open a new database connection."""
+    #print all files in current directory
     if "sqlite_db" not in flask.g:
         db_filename = search.app.config["DATABASE_FILENAME"]
         flask.g.sqlite_db = sqlite3.connect(str(db_filename))

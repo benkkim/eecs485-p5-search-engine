@@ -13,5 +13,32 @@
     <div><input type="range" name="w" min="0" max="1" step=".01" value="{{ request.args.get('w') }}"></div>
     <input type="submit" value="Search"/>
   </form>
+  <div class="docs">
+    {% if num_docs == 0 %}
+        <p>No search results found</p>
+    {% else %}
+    {% for document in Documents %}
+    <div class="doc">
+        <!-- if the document exists -->
+        {% if document in Documents%}
+            <a href="{{document.url}}"></a>
+        {% else %}
+            <div> No url available </div>
+        {% endif %}
+        <div class="title">{{document.title}}</div>
+
+        {% if summary in Documents%}
+            <div class="summary">{{document.summary}}</div>
+        {% else %}
+            <div> No summary available </div>
+        {% endif %}
+        <!-- if the document doesn't exist -->
+        {% if document not in Documents%}
+            <div class="no_results">No search results found!</div>
+        {% endif %}
+    </div>
+  {% endfor %}
+  {%endif%}
+  </div>
 </body>
 </html>
