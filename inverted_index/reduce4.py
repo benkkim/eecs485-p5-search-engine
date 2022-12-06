@@ -8,21 +8,19 @@ import math
 def reduce_one_group(key, group):
     """Reduce one group."""
     group = list(group)
-    norm = 0
-    term = ""
-    idf_k = 0
-    tf_k = 0
-    lord_please = []
-    for val in group:
-        val = val.split()
-        d_id = val[0]
-        term = val[1]
-        idf_k = float(val[2])
-        w_ik = float(val[3])
-        tf_k = float(val[4])
-        norm += float(w_ik)**2
-        lord_please.append(f"{term} {tf_k} {idf_k}")
-    print(f"{d_id}\t{lord_please} {norm}")
+    norm = 0.
+    l_o_t = []
+    for term in group:
+        term = term.strip()
+        term = term.split("\t")
+        d_id = term[0].strip()
+        t_k = term[1].split()[0].strip()
+        tf_k = term[1].split()[1].strip()
+        idf_k = term[1].split()[2].strip()
+        norm += (float(tf_k) * float(idf_k)) ** 2 
+        l_o_t.append(f"{t_k} {tf_k} {idf_k}")
+    sys.stdout.write(f"{d_id}\t{l_o_t} {norm}\n")
+
 
     
 

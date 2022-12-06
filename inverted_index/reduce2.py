@@ -5,7 +5,9 @@ import json
 
 def reduce_one_group(key, group):
     """Reduce one group."""
-    print(f"{key}\t{len(list(group))}")
+    group = list(group)
+    key = key.strip()
+    sys.stdout.write(f"{key}\t{len(group)}\n")
     
 
 def keyfunc(line):

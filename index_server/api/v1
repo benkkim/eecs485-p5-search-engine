@@ -1,0 +1,6 @@
+$http "localhost:9000/api/v1"
+    
+    {
+        "hits": "/api/v1/hits/", 
+        "url": "/api/v1/"
+    }

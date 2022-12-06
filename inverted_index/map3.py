@@ -2,11 +2,10 @@
 import sys
 
 for line in sys.stdin:
+    line = line.strip()
     text = line.split("\t")
-    if len(text) < 2:
-        continue
     key = text[0].split()
-    t_k = key[1]
-    freq = float(text[1])
-    d_id = float(key[0])
-    print(f"{t_k}\t{d_id} {freq}")
+    t_k = key[1].strip()
+    freq = text[1].strip()
+    d_id = key[0].strip()
+    sys.stdout.write(f"{t_k}\t{d_id} {freq}\n")

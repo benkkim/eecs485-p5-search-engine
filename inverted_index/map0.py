@@ -2,4 +2,4 @@
 """Document Counter"""
 import sys
 import csv
-print(sum(1 for line in sys.stdin))
+sys.stdout.write(f"a\t{sum(1 for line in sys.stdin)}\n")

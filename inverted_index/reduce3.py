@@ -8,18 +8,17 @@ def reduce_one_group(key, group):
     """Reduce one group."""
     file_count = 0
     with open("total_document_count.txt", "r") as file:
-        file_count = int(file.readline())
+        file_count = float(file.readline())
     
     group = list(group)
-    for word in group:
-        word = word.split()
-        if len(word) < 2:
-            continue
-        tf_k = word[2]
-        d_id = float(word[1])
-        idf_k = float(math.log10(file_count / len(list(group))))
-        w_ik = float(idf_k) * float(tf_k)
-        print(f"{key}\t{idf_k} {d_id} {w_ik} {tf_k}")
+    for doc in group:
+        doc = doc.strip()
+        doc = doc.split()
+        t_k = doc[0].strip()
+        d_id = doc[1].strip()
+        tf_k = doc[2].strip()
+        idf_k = math.log10(file_count / len(list(group)))
+        sys.stdout.write(f"{t_k}\t{d_id} {tf_k} {idf_k}\n")
 
     
 

@@ -2,13 +2,11 @@
 import sys
 
 for line in sys.stdin:
+    line = line.strip()
     text = line.split("\t")
-    if len(text) < 2:
-        continue
-    term = text[0]
-    value = text[1].split()
-    idf_k = float(value[0])
-    d_id = float(value[1])
-    w_ik = float(value[2])
-    tf_k = float(value[3])
-    print(f"{d_id}\t{term} {idf_k} {w_ik} {tf_k}")
+    t_k = text[0].strip()
+    d_id = text[1].split()[0].strip()
+    tf_k = text[1].split()[1].strip()
+    idf_k = text[1].split()[2].strip()
+    sys.stdout.write(f"{d_id}\t{t_k} {tf_k} {idf_k}\n")
+    

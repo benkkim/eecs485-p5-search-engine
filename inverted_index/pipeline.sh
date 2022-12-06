@@ -62,3 +62,31 @@ madoop \
   -output output4 \
   -mapper ./map4.py \
   -reducer ./reduce4.py
+
+# Job 5
+madoop \
+  -input output4 \
+  -output output \
+  -mapper ./map5.py \
+  -reducer ./reduce5.py
+
+# move a directory out
+cd ..
+
+#clear  index_server/index/inverted_index and 
+rm -rf index_server/index/inverted_index && rm -rf index_server/stopwords.txt
+
+mkdir index_server/index/inverted_index
+
+# copy the output to index_server/index/inverted_index
+cp -r inverted_index/output/* index_server/index/inverted_index
+cp inverted_index/stopwords.txt index_server/stopwords.txt
+
+# rename the all the files in index_server/index/inverted_index to follow the format inverted_index_(idx).txt like the example below
+idx=0
+for file in index_server/index/inverted_index/*
+do
+  mv $file index_server/index/inverted_index/inverted_index_$idx.txt
+  idx=$((idx+1))
+done
+
