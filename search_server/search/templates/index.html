@@ -26,15 +26,15 @@
     <div class="doc">
         <!-- if the document exists -->
         {% if doc.url %}
-            <a class="url" href="{{doc.url}}"></a>
+            <a class="doc_url" href="{{doc.url}}">{{doc.url}}</a>
         {% else %}
-            <div> No url available </div>
+            <a class="doc_url">No url available</a>
         {% endif %}
         <div class="doc_title">{{doc.title}}</div>
         {% if doc.summary%}
             <div class="doc_summary">{{doc.summary}}</div>
         {% else %}
-            <div> No summary available </div>
+            <div class="doc_summary"> No summary available </div>
         {% endif %}
     </div>
   {% endfor %}
