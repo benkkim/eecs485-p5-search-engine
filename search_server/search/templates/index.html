@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>ask485?</title>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+</head>
+<body>
+  <!-- DO NOT CHANGE THIS (aside from where we say 'FIXME') -->
+  <form action="/" method="GET">
+    <div><input type="text" name="q" value="{{ request.args.get('q') }}"></div>
+    <div><input type="range" name="w" min="0" max="1" step=".01" value="{{ request.args.get('w') }}"></div>
+    <input type="submit" value="Search"/>
+  </form>
+</body>
+</html>

@@ -80,7 +80,7 @@ mkdir index_server/index/inverted_index
 
 # copy the output to index_server/index/inverted_index
 cp -r inverted_index/output/* index_server/index/inverted_index
-cp inverted_index/stopwords.txt index_server/stopwords.txt
+cp inverted_index/stopwords.txt index_server/index/stopwords.txt
 
 # rename the all the files in index_server/index/inverted_index to follow the format inverted_index_(idx).txt like the example below
 idx=0
