@@ -2,7 +2,7 @@
 import flask
 import search
 import search.model
-from search_server.search.config import SEARCH_INDEX_SEGMENT_API_URLS
+from search.config import SEARCH_INDEX_SEGMENT_API_URLS
 import requests
 from threading import Thread
 
@@ -29,7 +29,7 @@ def index():
     if q_res is None:
         context["docs"] = []
         context["num_docs"] = 0
-        return flask.render_template("index.html", **context)
+        return flask.render_template("index.html", **context), 200
     
     threads = []
     results = [[] for _ in range(len(SEARCH_INDEX_SEGMENT_API_URLS))]
@@ -41,13 +41,17 @@ def index():
     for thread in threads:
         thread.join()
     
-    doc_ids = []
-    for resu in results:
-        doc_ids += resu["hits"]
+    result_hits = []
+    for result in results:
+        result_hits.append(result["hits"])
     
-    doc_ids = sorted(doc_ids, key=lambda x: x["score"], reverse=True)
+    doc_ids = []
+    for result in result_hits:
+        for doc in result:
+            doc_ids.append(doc)
 
-    doc_ids = doc_ids[:10]
+    if len(doc_ids) > 10:
+        doc_ids = doc_ids[:10]
 
     con = search.model.get_db()
 
@@ -62,4 +66,4 @@ def index():
     context["docs"] = docs
     context["num_docs"] = len(docs)
 
-    return flask.render_template("index.html", **context)
+    return flask.render_template("index.html", **context), 200
