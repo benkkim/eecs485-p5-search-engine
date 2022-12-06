@@ -1,32 +1,22 @@
 #!/usr/bin/env python3
+"""maps document id to document body."""
 import sys
 import csv
 import re
 
-for line in sys.stdin:
-    line = line.strip()
-    words = line.split(",")
-
-    # take the third column and set it to x
-    doc_id = words[0]
-    doc_id = re.sub(r"[^a-zA-Z0-9 ]+", "", doc_id)
-
-    # combine the second and third column and set it to y
-    text = words[1] + " " + words[2]
-
-    # text = text.replace('"', '')
-    text = re.sub(r"[^a-zA-Z0-9 ]+", "", text)
-    text = text.lower()
-
-    #remove stopwords
-    text = text.split()
+csv.field_size_limit(sys.maxsize)
+for line in csv.reader(sys.stdin):
+    line = [re.sub(r"[^a-zA-Z0-9 ]+", "", word) for word in line]
+    doc_id = line[0].strip()
+    title_body = line[1] + " " + line[2]
+    stopwords = set()
     with open("stopwords.txt", "r") as f:
-        stopwords = f.read().splitlines()
-        stopwords = set(stopwords)
-        text = [word for word in text if word not in stopwords]
-    
-    
-    text = " ".join(text)
-
-    # print a key value pair of doc_id and text
-    print(f"{doc_id}\t{text}")
+        for line in f:
+            stopwords.add(line.strip())
+    title_body = title_body.casefold()
+    title_body = title_body.split()
+    title_body = [
+        word.strip() for word in title_body if word.strip() not in stopwords
+    ]
+    title_body = " ".join(title_body)
+    sys.stdout.write(f"{doc_id}\t{title_body}\n")
