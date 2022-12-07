@@ -8,15 +8,15 @@ csv.field_size_limit(sys.maxsize)
 for line in csv.reader(sys.stdin):
     line = [re.sub(r"[^a-zA-Z0-9 ]+", "", word) for word in line]
     doc_id = line[0].strip()
-    title_body = line[1] + " " + line[2]
+    TITLE_BODY = line[1] + " " + line[2]
     stopwords = set()
-    with open("stopwords.txt", "r") as f:
+    with open("stopwords.txt", "r", encoding = 'UTF-8') as f:
         for line in f:
             stopwords.add(line.strip())
-    title_body = title_body.casefold()
-    title_body = title_body.split()
-    title_body = [
-        word.strip() for word in title_body if word.strip() not in stopwords
+    TITLE_BODY = TITLE_BODY.casefold()
+    TITLE_BODY = TITLE_BODY.split()
+    TITLE_BODY = [
+        word.strip() for word in TITLE_BODY if word.strip() not in stopwords
     ]
-    title_body = " ".join(title_body)
-    sys.stdout.write(f"{doc_id}\t{title_body}\n")
+    TITLE_BODY = " ".join(TITLE_BODY)
+    sys.stdout.write(f"{doc_id}\t{TITLE_BODY}\n")

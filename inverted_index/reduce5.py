@@ -1,16 +1,15 @@
 #!/usr/bin/env python3
-
+"""Template reducer."""
 import sys
 import itertools
-import json
 import re
-import math
 
 
 def reduce_one_group(key, group):
     """Reduce one group."""
     group = list(group)
     output = {}
+    key = key.strip()
     for file in group:
         file = file.strip()
         file = file.split("\t")

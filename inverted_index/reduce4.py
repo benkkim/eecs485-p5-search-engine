@@ -6,16 +6,13 @@ https://github.com/eecs485staff/madoop/blob/main/README_Hadoop_Streaming.md
 """
 import sys
 import itertools
-import json
-import re
-import math
-
 
 def reduce_one_group(key, group):
     """Reduce one group."""
     group = list(group)
     norm = 0.0
     l_o_t = []
+    key = key.strip()
     for term in group:
         term = term.strip()
         term = term.split("\t")

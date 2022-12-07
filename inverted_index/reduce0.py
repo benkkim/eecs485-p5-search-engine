@@ -11,6 +11,7 @@ import itertools
 def reduce_one_group(key, group):
     """Reduce one group."""
     total_count = 0
+    key = key.strip()
     group = list(group)
     for line in group:
         line = line.strip()
