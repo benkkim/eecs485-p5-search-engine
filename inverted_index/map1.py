@@ -10,7 +10,7 @@ for line in csv.reader(sys.stdin):
     doc_id = line[0].strip()
     TITLE_BODY = line[1] + " " + line[2]
     stopwords = set()
-    with open("stopwords.txt", "r", encoding = 'UTF-8') as f:
+    with open("stopwords.txt", "r", encoding='UTF-8') as f:
         for line in f:
             stopwords.add(line.strip())
     TITLE_BODY = TITLE_BODY.casefold()

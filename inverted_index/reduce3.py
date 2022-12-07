@@ -12,7 +12,7 @@ import math
 def reduce_one_group(key, group):
     """Reduce one group."""
     file_count = 0
-    with open("total_document_count.txt", "r", encoding = 'UTF-8') as file:
+    with open("total_document_count.txt", "r", encoding='UTF-8') as file:
         file_count = float(file.readline())
 
     group = list(group)

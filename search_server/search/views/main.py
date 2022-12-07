@@ -9,16 +9,18 @@ import requests
 # import threading
 # import pathlib
 
+
 def search_index(url, q_res, w_res, results, idx):
     """Search index."""
     end_point = f"{url}?q={q_res}&w={w_res}"
     try:
-        response = requests.get(end_point)
+        response = requests.get(end_point, timeout=5)
         response.raise_for_status()
     except requests.exceptions.HTTPError as err:
         raise SystemExit(err) from err
     res = response.json()
     results[idx] = res
+
 
 @search.app.route("/", methods=["GET"])
 def index():
@@ -33,7 +35,9 @@ def index():
     threads = []
     results = [[] for _ in range(len(SEARCH_INDEX_SEGMENT_API_URLS))]
     for idx, url in enumerate(SEARCH_INDEX_SEGMENT_API_URLS):
-        thread = Thread(target=search_index, args=(url, q_res, w_res, results, idx))
+        thread = Thread(
+            target=search_index, args=(url, q_res, w_res, results, idx)
+        )
         threads.append(thread)
         thread.start()
     for thread in threads:
